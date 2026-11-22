@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.metrics import accuracy_score, classification_report
-from preproccessing import Preproccessing
+from preprocessing_pipeline.preproccessing import Preproccessing
 from collections import Counter
 
 class KNN:

@@ -1,0 +1,28 @@
+{
+  "method": "mi",
+  "n_final": 20,
+  "corr_threshold": 0.95,
+  "min_support": 0.01,
+  "selected_features": [
+    "Curricular units 2nd sem (approved)",
+    "Curricular units 1st sem (approved)",
+    "Curricular units 2nd sem (grade)",
+    "Curricular units 1st sem (grade)",
+    "Curricular units 1st sem (evaluations)",
+    "Tuition fees up to date",
+    "Curricular units 2nd sem (evaluations)",
+    "Curricular units 2nd sem (enrolled)",
+    "Scholarship holder",
+    "Age at enrollment",
+    "Curricular units 1st sem (enrolled)",
+    "Application mode_39",
+    "Admission grade",
+    "Debtor",
+    "Previous qualification (grade)",
+    "Application mode_1",
+    "Gender",
+    "Course_9500",
+    "Mother's occupation_0",
+    "Course_9119"
+  ]
+}

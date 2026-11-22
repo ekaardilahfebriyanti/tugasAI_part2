@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Notebook
+.ipynb_checkpoints/
+
+# Lingkungan virtual
+.venv/
+venv/
+env/
+
+# Berkas sistem dan editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

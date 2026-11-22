@@ -1,0 +1,36 @@
+{
+  "version": "v1",
+  "label_map": {
+    "Dropout": 0,
+    "Enrolled": 1,
+    "Graduate": 2
+  },
+  "seed": 42,
+  "n_features": 20,
+  "feature_names": [
+    "Curricular units 2nd sem (approved)",
+    "Curricular units 1st sem (approved)",
+    "Curricular units 2nd sem (grade)",
+    "Curricular units 1st sem (grade)",
+    "Curricular units 1st sem (evaluations)",
+    "Tuition fees up to date",
+    "Curricular units 2nd sem (evaluations)",
+    "Curricular units 2nd sem (enrolled)",
+    "Scholarship holder",
+    "Age at enrollment",
+    "Curricular units 1st sem (enrolled)",
+    "Application mode_39",
+    "Admission grade",
+    "Debtor",
+    "Previous qualification (grade)",
+    "Application mode_1",
+    "Gender",
+    "Course_9500",
+    "Mother's occupation_0",
+    "Course_9119"
+  ],
+  "outlier_clipping": "IQR, k=3.0",
+  "encoding_scaling": "one-hot (nominal), standardisasi (numerik dan ordinal)",
+  "feature_selection": "mutual information, n=20",
+  "oversampling": "random oversampling pada data train"
+}

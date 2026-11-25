@@ -1,5 +1,6 @@
 import numpy as np
 from collections import Counter
+import pickle
 
 class KNN:
     def __init__(self, k=3, metric="euclidean"):
@@ -30,3 +31,13 @@ class KNN:
     def predict(self, X):
         X = np.asarray(X, dtype=float)
         return np.array([self._get_single_prediction(x) for x in X])
+    
+    def save_model_knn(self, filepath):
+        # menyimpan seluruh atribut model (data latih, k, metric) ke file .pkl
+        with open(filepath, 'wb') as f:
+            pickle.dump(self.__dict__, f)
+
+    def load_model_knn(self, filepath):
+        # memuat atribut model dari file .pkl ke dalam objek saat ini
+        with open(filepath, 'rb') as f:
+            self.__dict__.update(pickle.load(f))

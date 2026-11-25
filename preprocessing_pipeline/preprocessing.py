@@ -10,11 +10,13 @@ class Preprocessing:
         self.selected_features = None
         self.scaler = None
         self.impute_values = {}
+        # encode isi label target
+        self.label_encoder = LabelEncoder()
 
     def _clean_dataframe(self, df, is_train=True):
         data = df.copy()
 
-        # merapikan nama kolom dan mengubah teks kosong/aneh menjadi NaN
+        # merapikan nama kolom dan ubah teks kosong/aneh menjadi NaN
         data.columns = data.columns.str.strip()
         placeholder_kosong = ["?", "-", "na", "n/a", "null", "none", ""]
 
@@ -23,11 +25,11 @@ class Preprocessing:
             is_invalid = data[col].str.lower().isin(placeholder_kosong)
             data.loc[is_invalid, col] = np.nan
 
-        # menghapus duplikat hanya pd data train
+        # menghapus duplikat hanya pada data train
         if is_train:
             data = data.drop_duplicates().reset_index(drop=True)
 
-        # 3. memvalidasi domain nilai akademik
+        # memvalidasi domain nilai akademik
         data.loc[data["Application order"] < 1, "Application order"] = np.nan
         data["Application order"] = (
             data["Application order"]
@@ -46,7 +48,7 @@ class Preprocessing:
             data.loc[(data[grade_col] < 0) | (data[grade_col] > 20), grade_col] = np.nan
             data.loc[data[app_col] > data[enr_col], app_col] = np.nan
 
-        # 4. mengisi missing values menggunakan nilai median/modus dr data train
+        # mengisi missing values menggunakan nilai median/modus dari data train
         for col in data.columns:
             if col == "Target":
                 continue
@@ -77,7 +79,11 @@ class Preprocessing:
 
     def sparating_dataset(self, studentcl):
         X = studentcl.drop(columns=["Target"])
-        y = studentcl["Target"]
+        y = pd.Series(
+            self.label_encoder.fit_transform(studentcl["Target"]),
+            index=studentcl.index,
+            name="Target"
+        )
         return X, y
 
     def splitting_dataset(self, X, y):
@@ -86,18 +92,12 @@ class Preprocessing:
         )
 
     def select_features_by_correlation(self, X_train, X_test, y_train, threshold=0.05):
-        y_encoded = pd.Series(
-            LabelEncoder().fit_transform(y_train),
-            index=X_train.index,
-            name="Target"
-        )
-
-        df_train = pd.concat([X_train, y_encoded], axis=1)
+        df_train = pd.concat([X_train, y_train], axis=1)
         corr_target = df_train.corr(numeric_only=True)["Target"].drop("Target").abs().fillna(0)
 
         self.selected_features = corr_target[corr_target >= threshold].index.tolist()
         if len(self.selected_features) == 0:
-            raise ValueError("Tidak ada fitur yang lolos threshold. Coba untuk turunkan nilai threshold.")
+            raise ValueError("Tidak ada fitur yang lolos threshold. Turunkan nilai threshold.")
 
         return X_train[self.selected_features], X_test[self.selected_features], corr_target
 

@@ -1,7 +1,7 @@
 import numpy as np
 import pickle
 from collections import Counter
-from models.dtl import DecisionTree
+from models.decision_tree_learning import DecisionTree
 
 
 class RandomForest:
@@ -10,7 +10,7 @@ class RandomForest:
         self.n_estimators = n_estimators
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
-        self.max_features = max_features  # "sqrt" = akar jumlah kolom, atau angka
+        self.max_features = max_features 
         self.random_state = random_state
 
     def fit(self, X, y, categorical=()):
@@ -28,8 +28,8 @@ class RandomForest:
 
     def predict(self, X):
         X = np.asarray(X, dtype=float)
-        votes = np.array([tree.predict(X) for tree in self.trees])  # baris = pohon, kolom = data uji
-        return np.array([Counter(votes[:, i]).most_common(1)[0][0] for i in range(len(X))])  # suara terbanyak
+        votes = np.array([tree.predict(X) for tree in self.trees])  
+        return np.array([Counter(votes[:, i]).most_common(1)[0][0] for i in range(len(X))])  
 
     def save_model_rf(self, filepath):
         # menyimpan seluruh atribut model ke file .pkl

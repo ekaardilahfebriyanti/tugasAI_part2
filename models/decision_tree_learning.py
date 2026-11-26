@@ -5,11 +5,10 @@ from collections import Counter
 
 class DecisionTree:
     # CART: split biner, numerik "<= t", kategorikal "== t", impurity gini.
-    # node dalam = (kolom, t, null_kiri, kiri, kanan), daun = nomor kelas
     def __init__(self, max_depth=None, min_samples_split=2, max_features=None, random_state=None):
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
-        self.max_features = max_features  # jumlah kolom yg dicoba tiap split (dipakai random forest)
+        self.max_features = max_features  
         self.random_state = random_state
 
     def gini(self, y):
@@ -23,16 +22,16 @@ class DecisionTree:
         else:
             kolom = self.rng.choice(n, min(self.max_features, n), replace=False)
 
-        best, best_gain = None, -1  # gain 0 tetap boleh (contoh XOR)
+        best, best_gain = None, -1
         for j in kolom:
-            ada = ~np.isnan(X[:, j])  # nilai null diabaikan saat mencari split
+            ada = ~np.isnan(X[:, j])  
             nilai, label = X[ada, j], y[ada]
             if len(nilai) < 2:
                 continue
             if j in self.categorical:
                 kandidat = np.unique(nilai)
             else:
-                kandidat = np.unique(np.percentile(nilai, range(5, 100, 5)))  # maks 19 kandidat threshold
+                kandidat = np.unique(np.percentile(nilai, range(5, 100, 5))) 
 
             for t in kandidat:
                 kiri = (nilai == t) if j in self.categorical else (nilai <= t)
@@ -58,12 +57,13 @@ class DecisionTree:
         j, t = best
         kosong = np.isnan(X[:, j])
         kiri = (X[:, j] == t) if j in self.categorical else (X[:, j] <= t)
-        null_kiri = kiri.sum() >= (~kiri & ~kosong).sum()  # nilai null ikut cabang yg datanya lebih banyak
+        null_kiri = kiri.sum() >= (~kiri & ~kosong).sum()  
         kiri = kiri | (kosong & null_kiri)
         return (j, t, null_kiri, self.build(X[kiri], y[kiri], depth + 1), self.build(X[~kiri], y[~kiri], depth + 1))
 
     def fit(self, X, y, categorical=()):
-        # categorical = nomor kolom yg bertipe kategori. nilai null = NaN
+        # categorical = nomor kolom yg bertipe kategori 
+        # nilai null = NaN
         X = np.asarray(X, dtype=float)
         self.classes, y = np.unique(y, return_inverse=True)
         self.categorical = list(categorical)

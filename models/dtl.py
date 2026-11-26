@@ -63,7 +63,7 @@ class DecisionTree:
         return (j, t, null_kiri, self.build(X[kiri], y[kiri], depth + 1), self.build(X[~kiri], y[~kiri], depth + 1))
 
     def fit(self, X, y, categorical=()):
-        # categorical = nomor kolom yg bertipe kategori, nilai null = NaN
+        # categorical = nomor kolom yg bertipe kategori. nilai null = NaN
         X = np.asarray(X, dtype=float)
         self.classes, y = np.unique(y, return_inverse=True)
         self.categorical = list(categorical)

@@ -1,39 +1,65 @@
-Install numpy : python -m pip install numpy
-Install Pandas : python -m pip install pandas
-Install sklearn : python -m pip install scikit-learn
+# Tugas Besar IF5150 Project 2: Implementasi Algoritma Machine Learning
 
+Klasifikasi status mahasiswa (Dropout, Enrolled, Graduate) dengan algoritma yang dibuat sendiri memakai numpy dan dibandingkan dengan scikit-learn. Kelompok 3.
 
-Untuk menjalankan program :
-python (nama file).py
+## Struktur folder
 
+```
+.
+├── README.md
+├── doc/                      laporan (PDF)
+└── src/
+    ├── datasets/             train.csv, test.csv, sample_submission.csv, deskripsi variabel
+    ├── preprocessing/        pipeline.py (build_dataset, tanpa kebocoran data)
+    ├── models/               algoritma buatan sendiri (tanpa library ML)
+    ├── eval_scratch/         skrip evaluasi model buatan sendiri
+    ├── eval_library/         skrip evaluasi model scikit-learn sebagai pembanding
+    ├── notebooks/            eksperimen: 01 preprocessing, 02 ANN, 03 Ensemble
+    └── results/              model tersimpan (saved_models) dan file submission
+```
 
-pembagian tugas:
+## Instalasi
 
-1 Chatelia Dyah Prameswari  
+```
+python -m pip install numpy pandas scikit-learn matplotlib
+```
 
-- Membuat model ANN 
+scikit-learn hanya dipakai untuk metrik evaluasi, pembagian data, dan model pembanding di `eval_library`. Algoritma di `models` tidak memakai library ML.
 
-- Membuat ensemble learning model 
+## Cara menjalankan
 
-- Melakukan data pre-processing 
+Semua perintah dijalankan dari dalam folder `src`:
 
-- Menganalisis algoritma ANN dan asemble 
+```
+cd src
+python -m eval_scratch.main_decision_tree_learning
+python -m eval_scratch.main_random_forest
+python -m eval_scratch.main_knn
+python -m eval_scratch.main_logistic_regression
+python -m eval_scratch.main_ensemble
+python -m eval_library.dtl_bawaan
+python -m eval_library.rf_bawaan
+python -m eval_library.knn_bawaan
+python -m eval_library.logreg_bawaan
+```
 
-2 Ishak 
+Catatan:
+- `main_ensemble` memuat lima model yang sudah disimpan di `results/saved_models` (ANN, Logistic Regression, Random Forest, Decision Tree, KNN), jadi jalankan skrip modelnya lebih dulu bila ingin melatih ulang. File ANN (`ann.npz`) dihasilkan oleh `notebooks/02_ann_model.ipynb`.
+- Random Forest membutuhkan waktu beberapa menit karena ada pencarian hyperparameter.
+- Skrip menyimpan model ke `results/saved_models` dan prediksi test ke `results/submission_*.csv`.
 
-- Membuat model ANN 
+## Notebook
 
-- Membuat ensemble learning model 
+Notebook dibuat untuk Google Colab. Unggah berkas yang diminta pada Cell 1 (dataset, `pipeline.py`, dan file model), lalu jalankan sel berurutan.
 
-- Menganalisis algoritma ANN dan asemble 
+## Pra-pemrosesan
 
-3 Eka Ardilah Febriyanti 
+`preprocessing/pipeline.py` menyediakan `build_dataset()`: pembersihan nilai, pembagian latih dan validasi (80/20, stratified), imputasi, pemotongan outlier (IQR), one-hot dan standardisasi, seleksi 20 fitur (mutual information), serta oversampling pada data latih. Semua statistik dipelajari dari data latih saja.
 
-- Membuat model KNN 
+## Pembagian tugas
 
-- Membuat model Logistic Regression 
-
-- Melakukan data pre-processing 
-
-- Menganalisis algoritma KNN dan Logistic Regression 
-
+| Anggota | Tugas |
+|---|---|
+| Chatelia Dyah Prameswari | ANN, Ensemble, outlier, seleksi fitur, penanganan imbalance, skema validasi, analisis ANN dan Ensemble |
+| Ishak | Decision Tree, Random Forest, normalisasi, one-hot, ordinal, analisis Decision Tree dan Random Forest |
+| Eka Ardilah Febriyanti | KNN, Logistic Regression, missing values, standardisasi, tokenisasi, analisis KNN dan Logistic Regression |

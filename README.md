@@ -21,11 +21,13 @@ pembagian tugas:
 
 2 Ishak 
 
-- Membuat model ANN 
+- Membuat model Decision Tree Learning 
 
-- Membuat ensemble learning model 
+- Membuat model Random Forest 
 
-- Menganalisis algoritma ANN dan asemble 
+- Melakukan data pre-processing 
+
+- Menganalisis algoritma Decision Tree Learning dan Random Forest 
 
 3 Eka Ardilah Febriyanti 
 

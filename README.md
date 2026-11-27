@@ -36,7 +36,10 @@ python -m eval_scratch.main_decision_tree_learning
 python -m eval_scratch.main_random_forest
 python -m eval_scratch.main_knn
 python -m eval_scratch.main_logistic_regression
+python -m eval_scratch.main_ann
 python -m eval_scratch.main_ensemble
+python -m eval_library.ann_bawaan
+python -m eval_library.ensemble_bawaan
 python -m eval_library.dtl_bawaan
 python -m eval_library.rf_bawaan
 python -m eval_library.knn_bawaan
@@ -44,7 +47,7 @@ python -m eval_library.logreg_bawaan
 ```
 
 Catatan:
-- `main_ensemble` memuat lima model yang sudah disimpan di `results/saved_models` (ANN, Logistic Regression, Random Forest, Decision Tree, KNN), jadi jalankan skrip modelnya lebih dulu bila ingin melatih ulang. File ANN (`ann.npz`) dihasilkan oleh `notebooks/02_ann_model.ipynb`.
+- `main_ensemble` memuat lima model yang sudah disimpan di `results/saved_models` (ANN, Logistic Regression, Random Forest, Decision Tree, KNN), jadi jalankan skrip modelnya lebih dulu bila ingin melatih ulang. File ANN (`ann.npz`) dihasilkan oleh `eval_scratch.main_ann` (atau `notebooks/02_ann_model.ipynb`).
 - Random Forest membutuhkan waktu beberapa menit karena ada pencarian hyperparameter.
 - Skrip menyimpan model ke `results/saved_models` dan prediksi test ke `results/submission_*.csv`.
 

@@ -12,7 +12,8 @@ class KNN:
         self.y_train = np.asarray(y)
 
     def _get_distances(self, x_single):
-        # menghitung jarak antara 1 baris data uji (x_single) dengan seluruh baris data latih (self.X_train) secara bersamaan.
+        # menghitung jarak antara 1 baris data test (x_single) dengan 
+        # seluruh baris data train (self.X_train) secara bersamaan.
         diff = self.X_train - x_single
         
         if self.metric == "euclidean":

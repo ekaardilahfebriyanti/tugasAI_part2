@@ -15,7 +15,7 @@ _, X_test_scaled, _, y_test = train_test_split(
 )
 nama_kelas = prep.class_names
 
-# 2. training model knn dengan euclidean
+# 2. men-training model knn dengan euclidean
 final_modelknn_eu = KNN(k=39, metric="euclidean")
 t0 = time.time()
 final_modelknn_eu.fit(X_train_scaled, y_train)
@@ -32,7 +32,7 @@ print(f"Accuracy       : {accuracy_score(y_test, pred_test_eu):.4f}")
 print(classification_report(y_test, pred_test_eu, target_names=nama_kelas, digits=4))
 print("Confusion Matrix:\n", confusion_matrix(y_test, pred_test_eu))
 
-# 3. training model knn dengan jarak manhattan
+# 3. men-training model knn dengan jarak manhattan
 final_modelknn_man = KNN(k=21, metric="manhattan")
 t0 = time.time()
 final_modelknn_man.fit(X_train_scaled, y_train)
@@ -49,7 +49,7 @@ print(f"Accuracy       : {accuracy_score(y_test, pred_test_man):.4f}")
 print(classification_report(y_test, pred_test_man, target_names=nama_kelas, digits=4))
 print("Confusion Matrix:\n", confusion_matrix(y_test, pred_test_man))
 
-# 4. simpan dan load model
+# 4. menyimpan dan load model
 os.makedirs("results/saved_models", exist_ok=True)
 final_modelknn_eu.save_model_knn("results/saved_models/knn_euclidean.pkl")
 final_modelknn_man.save_model_knn("results/saved_models/knn_manhattan.pkl")
@@ -64,7 +64,7 @@ loaded_knn_man.load_model_knn("results/saved_models/knn_manhattan.pkl")
 assert np.array_equal(pred_test_man, loaded_knn_man.predict(X_test_scaled)), "Prediksi model loaded berbeda!"
 print("[OK] Verifikasi Save & Load model KNN Manhattan berhasil (prediksi identik 100%).")
 
-# 5. prediksi test.csv
+# 5. memprediksi test.csv
 student_ids = prep.test_ids
 X_submission_scaled = prep.X_test
 

@@ -11,13 +11,13 @@ class LogisticRegression:
         self.cost_history = []
 
     def softmax(self, z):
-        # Softmax activation function (stabil secara numerik untuk multi-kelas)
+        # fungsi aktivasi Softmax yang dapat mengubah angka skor mentah hasil hitungan model menjadi nilai peluang (probabilitas) untuk setiap kelas (0, 1, dan 2).
         z_shifted = z - np.max(z, axis=1, keepdims=True)
         exp_z = np.exp(z_shifted)
         return exp_z / np.sum(exp_z, axis=1, keepdims=True)
 
     def cost(self, h, y_one_hot):
-    # Menghitung Categorical Cross-Entropy Loss
+        # menghitung Categorical Cross-Entropy Loss
         m = y_one_hot.shape[0]
         # mencegah log(0)
         eps = 1e-15  
